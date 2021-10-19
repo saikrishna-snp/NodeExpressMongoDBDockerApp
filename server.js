@@ -86,7 +86,7 @@ let lastLoop = Date.now();
 function monitorEventLoop() {
     const time = Date.now();
     if (time - lastLoop > 1000) console.error('Event loop blocked ' + (time - lastLoop));
-    lastLoop = time;
+    lastLoop = datetime;
     setTimeout(monitorEventLoop, 200);
 }
 
