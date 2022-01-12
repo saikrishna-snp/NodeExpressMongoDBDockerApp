@@ -17,8 +17,9 @@ services:
   # Phixius Platform Services
 
   platform-api:
-    image: phixiuspreprod.azurecr.io/phixius-platform-api:v3.26.0
-    command: ['npm', 'start']
+    image: node
+#     image: phixiuspreprod.azurecr.io/phixius-platform-api:v3.26.0
+#     command: ['npm', 'start']
     restart: on-failure
 #     depends_on:
 #       - mongo
