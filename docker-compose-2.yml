@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    labels:
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./config/nginx_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - ./ssl:/etc/nginx/certs
+      - ./log/nginx_error.log:/tmp/nginx_error.log
+
+  # Phixius Platform Services
+
+  platform-api:
+    image: phixiuspreprod.azurecr.io/phixius-platform-api:v3.26.0
+    command: ['npm', 'start']
+    restart: on-failure
+    depends_on:
+      - mongo
+      - ganache
+      - authentication-api
+    environment:
+      VIRTUAL_HOST: platform-api.dev.phixiusenv.com
+      OFFCHAIN_DB_NAME: etl
+      CERT_NAME: dev.phixiusenv.com
+    volumes:
+      - ./config/csp-a.default.json5:/app/config/default.json5:delegated
+      - ./config/custom-environment-variables.json5:/app/config/custom-environment-variables.json5:delegated
