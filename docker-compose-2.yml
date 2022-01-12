@@ -25,7 +25,8 @@ services:
       - ganache
       - authentication-api
     environment:
-      VIRTUAL_HOST: platform-api.dev.phixiusenv.com
+      VIRTUAL_HOST: ${{ secrets.VIRTUAL_HOST }}
+      #VIRTUAL_HOST: platform-api.dev.phixiusenv.com
       OFFCHAIN_DB_NAME: etl
       CERT_NAME: dev.phixiusenv.com
     volumes:
