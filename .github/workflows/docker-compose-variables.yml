@@ -28,4 +28,6 @@ jobs:
         run: |
           ls -lrth 
           cat docker-compose-2.yml
+        env:
+         VIRTUAL_HOST: ${{ secrets.VIRTUAL_HOST }}
       
